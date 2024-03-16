@@ -2,6 +2,9 @@
 
 ## Part 1 : Solution Design
 
+### Process Flow
+![process_flow.svg](process_flow.svg)
+
 ### [API Contract](api_contract.pdf)
 
 ### Secured coding
@@ -15,7 +18,7 @@ and only retrieve, perform actions on resources belong to that user
 - **Rate limit** : to limit the number of time user can use the function
 - **Log masking** : Mask all sensitive info (username, phone number, account number) to protect customer
 personal data
-- 
+
 ### Testing
 - **Unit Test** (Mockito) : test classes, methods to ensure they perform the expected function
 - **Component test** (Cucumber) : BDD (behavior-driven development) testing for application's behavior
@@ -27,7 +30,7 @@ personal data
 - **Micro-service** :
   - Customer Service : Registration and authentication for customers
   - Order Service : Handle order requests from customer
-  - Shop service : Handle actions from shop owners
+  - Shop service : Store menu, pricing and item counts; Handle actions from shop owners; Manage queues
   - Notification service : send notification to customers and shop owners
   - Payment service : integrate with third-parties like payment gateway
 - **Event-driven** : allow components do asynchronous communication with each other,
@@ -50,4 +53,3 @@ reduce operational overhead, focus on business
   - Configuration Enricher : enrich request with specific Tenant metadata, configuration stored in Parameter Store,
   DynamoDB, etc.
 
-### Technology
