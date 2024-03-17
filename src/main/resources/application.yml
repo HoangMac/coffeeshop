@@ -1,0 +1,71 @@
+springdoc:
+  packagesToScan:
+    - com.assessment.coffeeshop.controller
+
+server.port: 8808
+
+spring:
+  profiles:
+    active: "${SPRING_PROFILES_ACTIVE:local}"
+  jpa:
+    database: POSTGRESQL
+    openInView: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        # https://docs.jboss.org/hibernate/stable/core.old/reference/en/html/configuration-optional.html
+        jdbc:
+          batch_size: 25
+          batch_versioned_data: true
+          time_zone: UTC
+        order_inserts: true
+        order_updates: true
+        show_sql: false
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: "jdbc:postgresql://${DB_URL:localhost}:${DB_PORT:5432}/coffee_shop_db?useUnicode=yes&characterEncoding=utf-8&useSSL=true&requireSSL=true"
+    username: "${DB_USER:root}"
+    password: "${DB_PWD:root}"
+    hikari:
+      connectionTimeout: 30000
+      maxLifetime: 240000
+      maximumPoolSize: 50
+      minimumIdle: 5
+      idleTimeout: 230000
+      data-source-properties:
+        prep-stmt-cache-size: 250
+        prep-stmt-cache-sql-limit: 2048
+        cache-prep-stmts: true
+        use-server-prep-stmts: true
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    contexts: dev
+  aop:
+    auto: false
+
+  redis:
+    host: "${REDIS_HOST:localhost}"
+    port: 6379
+    username: "${REDIS_USERNAME:}"
+    password: "${REDIS_PWD:}"
+    ssl: "${REDIS_SSL:false}"
+    timeout: "${REDIS_TIMEOUT:10s}"
+    connectTimeout: "${REDIS_CONNECTION_TIMEOUT:5s}"
+    # TODO: Adjust connection pool for Redis using Lettuce. Please update for Jedis according if Jedis is used
+    lettuce.pool:
+      maxIdle: "${LETTUCE_MAX_IDLE:8}"
+      minIdle: "${LETTUCE_MIN_IDLE:4}"
+      maxActive: "${LETTUCE_MAX_ACTIVE:16}"
+      maxWait: "${LETTUCE_MAX_WAIT:10s}"
+
+cloud:
+  aws:
+    dynamodb:
+      endpoint: dynamodb.ap-southeast-1.amazonaws.com
+    sqs:
+      region: ap-southeast-1
+      endpoint: sqs.ap-southeast-1.amazonaws.com
+      bindings:
+        order-process-queue-name: "${ORDER_PROCESS_SQS:coffee-shop-order-process-sqs}"
+        order-update-noti-queue-name: "${ORDER_UPDATE_NOTI_SQS:coffee-shop-order-update-noti-sqs}"
