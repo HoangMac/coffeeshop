@@ -53,3 +53,51 @@ reduce operational overhead, focus on business
   - Configuration Enricher : enrich request with specific Tenant metadata, configuration stored in Parameter Store,
   DynamoDB, etc.
 
+
+## Part 2 : Implement Process Order Service
+## Overview
+The Coffee Shop REST API is a Spring Boot and Gradle-based web service that manages coffee pre-orders. The API is documented using Springdoc OpenAPI.
+
+## Features
+
+- Enable Shop Owners to pick an order from a queue and process it
+
+## Getting Started
+
+### Prerequisites
+
+- [Java JDK 21](https://docs.aws.amazon.com/corretto/latest/corretto-21-ug/downloads-list.html)
+- [Gradle](https://gradle.org/install/)
+- Database : PostgreSQL
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/HoangMac/coffeeshop.git
+
+2. **Navigate to the project directory:**
+
+    ```bash
+    cd coffeeshop
+
+3. **Specify Java Home Variable (SDK 21)**
+
+    ```bash
+    export JAVA_HOME=~/Library/Java/JavaVirtualMachines/corretto-21.0.2/Contents/Home
+
+4. **Deploy the application:**
+
+  ```bash
+  chmod +x deploy.sh stop.sh
+  ./deploy.sh
+  ```
+5. **The application will start on http://localhost:8080.**
+
+### API Documentation
+Access the API documentation by navigating to:
+
+http://localhost:8080/swagger-ui.html
+
+![img.png](img.png)
