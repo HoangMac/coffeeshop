@@ -40,7 +40,6 @@ spring:
         use-server-prep-stmts: true
   liquibase:
     change-log: classpath:/db/changelog/db.changelog-master.yaml
-    contexts: dev
   aop:
     auto: false
 

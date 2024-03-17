@@ -3,6 +3,8 @@ spring:
     properties:
       hibernate:
         show_sql: true
+  liquibase:
+    contexts: dev
 
 cloud:
   aws:

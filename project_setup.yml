@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: coffee_shop_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    ports:
+      - "4566:4566"
+    environment:
+      SERVICES: sqs,dynamodb
+      DATA_DIR: /tmp/localstack/data
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+    networks:
+      - localstack_network
+
+  coffee-shop:
+    image: coffee-shop-image
+    container_name: coffee-shop
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+    depends_on:
+      - postgres
+      - redis
+      - localstack
+
+#  portainer:
+#    image: portainer/portainer-ce:latest
+#    container_name: portainer
+#    ports:
+#      - 9443:9443
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  localstack_network:
+    driver: bridge
+
+volumes:
+  pgdata:

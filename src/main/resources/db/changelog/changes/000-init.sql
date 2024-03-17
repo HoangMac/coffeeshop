@@ -1,3 +1,4 @@
+--changeset create-table-order_request
 CREATE TABLE IF NOT EXISTS order_request (
     order_id VARCHAR(100) PRIMARY KEY,
     queue_id VARCHAR(100),
